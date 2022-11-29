@@ -2,12 +2,23 @@ using LoginSystemApi.Data;
 using LoginSystemApi.Models;
 using LoginSystemApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LoginSystemApi.Controllers;
 
 [ApiController]
 public class UserController : ControllerBase
 {
+    [HttpGet("api/v1/")]
+    public async Task<IActionResult> GetAsync(
+        [FromServices] AppDataContext context)
+    {
+        var users = context.Users
+            .AsTracking().ToListAsync();
+        
+        return Ok(users);
+    }
+    
     [HttpPost("api/v1/register")]
     public async Task<IActionResult> PostAsync(
         [FromServices] AppDataContext context,
