@@ -36,5 +36,9 @@ public class UserMap : IEntityTypeConfiguration<User>
             .HasColumnName("PasswordHash")
             .HasColumnType("NVARCHAR")
             .HasMaxLength(255);
+        
+        /* index config */
+        builder.HasIndex(x => x.Id)
+            .IsUnique();
     }
 }
